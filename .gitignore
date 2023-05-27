@@ -1,0 +1,10 @@
+/venv
+/db.sqlite3
+/main.bin
+/manage.bin
+__pycache__
+/static/*
+/media/*
+/dist
+/python
+/.env
