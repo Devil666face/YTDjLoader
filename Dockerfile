@@ -1,5 +1,5 @@
 FROM debian:10
-ENV REPO_NAME=DjangoTemplate
+ENV REPO_NAME=YTDjLoader
 ENV GIT_LINK="https://github.com/Devil666face/${REPO_NAME}.git"
 RUN apt-get update -y && \
     apt-get install -y \
