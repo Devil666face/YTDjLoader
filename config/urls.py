@@ -6,5 +6,6 @@ from django.urls import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("app.urls")),
+    path("auth/", include("app.urls.auth_urls")),
+    path("video/", include("app.urls.video_urls")),
 ]

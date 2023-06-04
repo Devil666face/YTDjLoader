@@ -1,5 +1,6 @@
 #!/bin/bash
 ./venv/bin/python manage.py makemigrations
+./venv/bin/python manage.py makemigrations app
 ./venv/bin/python manage.py collectstatic --no-input
 ./venv/bin/python manage.py migrate
 ./venv/bin/python manage.py createcachetable
