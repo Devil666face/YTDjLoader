@@ -1,5 +1,6 @@
 #!./venv/bin/python
 import os
+import fractions
 from waitress import serve
 from config.wsgi import application
 from dotenv import load_dotenv

@@ -33,7 +33,14 @@ class Video(BaseModel):
         verbose_name="Download status",
     )
     preview = models.ImageField(
-        upload_to="preview/%Y/%m/%d/", blank=True, verbose_name="Preview"
+        upload_to="preview/%Y/%m/%d/",
+        blank=True,
+        verbose_name="Preview",
+    )
+    file = models.FileField(
+        upload_to="videos/%Y/%m/%d/",
+        verbose_name="Video file",
+        blank=True,
     )
 
     def __str__(self) -> str:
