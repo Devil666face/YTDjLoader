@@ -16,3 +16,4 @@ if __name__ == "__main__":
 import fractions
 import pytube
 import django_htmx
+import django_htmx.middleware
