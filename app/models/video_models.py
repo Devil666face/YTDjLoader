@@ -1,3 +1,5 @@
+from typing import Iterable, Optional
+from app.utils.video_utils import YouTubeAPI
 from django.db import models
 from django.urls import reverse
 
@@ -47,7 +49,18 @@ class Video(BaseModel):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("video", kwargs={"pk": self.pk})
+        return reverse("video:video", kwargs={"pk": self.pk})
+
+    def save(
+        self,
+        force_insert: bool = ...,
+        force_update: bool = ...,
+        using: Optional[str] = ...,
+        update_fields: Optional[Iterable[str]] = ...,
+    ) -> None:
+        _ = YouTubeAPI(url=self.href)
+        self.title = _.title
+        return super().save()
 
     class Meta:
         verbose_name = "Video"

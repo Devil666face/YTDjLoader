@@ -1,0 +1,17 @@
+<div class="row">
+	<form method="POST" {% if action %}hx-post="{{action}}" hx-target="body" {% endif %} enctype="multipart/form-data"
+		id="{{id}}">
+		{% csrf_token %}
+		{{form.as_p}}
+		<div class="row mt-4 modal-footer">
+			<div class="col">
+				<button type="submit" class="btn btn-outline-success shadow form-control mb-1">
+					{% if btn %}
+					{{btn}}
+					{% else %}
+					{% endif %}
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

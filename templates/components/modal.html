@@ -1,0 +1,14 @@
+<div class="modal fade" id="{{id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">{{modal_title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="updateFormContent">
+        {% include 'components/form.html' with form=modal_form action=modal_action id=form_id btn=btn_text %}
+      </div>
+    </div>
+  </div>
+</div>

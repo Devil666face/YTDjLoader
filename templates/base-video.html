@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<main class="w-100 m-auto">
+  {% for video in video_list %}
+  {{video.href}}
+  {% endfor %}
+
+  {% include 'components/modal-button.html' with
+  btn_text='Download video'
+  id='downloadFormModal'
+  extra_class='btn-light btn-sm' %}
+
+  {% url 'video:video_create' as create_url %}
+
+  {% include 'components/modal.html' with
+  modal_title='Download video'
+  btn_text='Download'
+  id='downloadFormModal'
+  modal_form=video_create_form
+  modal_action=create_url
+  form_id='downloadForm' %}
+</main>
+{% endblock %}
+
+{% block js %}{% endblock %}

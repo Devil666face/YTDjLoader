@@ -1,4 +1,8 @@
+from typing import Any, Dict
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.views.generic import (
+    ListView,
     View,
     CreateView,
 )
@@ -18,5 +22,14 @@ class VideoMixin(LoginMixin, View):
     template_name = "base.html"
 
 
+class VideoListViewMixin(VideoMixin, ListView):
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        extra_context = {
+            "video_create_form": VideoCreateForm(),
+        }
+        return {**super().get_context_data(**kwargs), **extra_context}
+
+
 class VideoCreateMixin(VideoMixin, CreateView):
-    pass
+    template_name = "form-video.html"
+    success_url = reverse_lazy("video:video_list")

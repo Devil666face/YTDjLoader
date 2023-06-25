@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<main class="w-100 m-auto">
+	{% include 'components/form.html' with form=form btn='Download' %}
+</main>
+{% endblock %}
+
+{% block js %}{% endblock %}
