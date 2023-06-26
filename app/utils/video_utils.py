@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import (
     Any,
     Callable,
@@ -5,6 +6,9 @@ from typing import (
     Optional,
 )
 from pytube import YouTube
+from urllib import request
+from config.settings import MEDIA_ROOT
+from pytube.streams import os
 
 
 class YouTubeAPI(YouTube):
@@ -29,3 +33,9 @@ class YouTubeAPI(YouTube):
     @property
     def title(self) -> str:
         return super().title
+
+    def preview(self, file_path: str) -> str:
+        full_file_path = Path(MEDIA_ROOT) / file_path
+        os.makedirs(full_file_path.parent, exist_ok=True)
+        request.urlretrieve(self.thumbnail_url, full_file_path)
+        return file_path

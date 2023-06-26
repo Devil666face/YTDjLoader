@@ -1,7 +1,11 @@
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional
+from uuid import uuid4
+
+from pytube.streams import os
 from app.utils.video_utils import YouTubeAPI
 from django.db import models
 from django.urls import reverse
+from django.core.files import File
 
 
 class BaseModel(models.Model):
@@ -60,6 +64,9 @@ class Video(BaseModel):
     ) -> None:
         _ = YouTubeAPI(url=self.href)
         self.title = _.title
+        self.preview = _.preview(
+            file_path=self.preview.field.generate_filename(self, f"{self.title}.jpg")
+        )
         return super().save()
 
     class Meta:
