@@ -2,9 +2,15 @@ from typing import Any
 from django.db.models import QuerySet
 from django.forms import BaseModelForm
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse, request, response
+from django.http import (
+    HttpRequest,
+    HttpResponse,
+)
 from django.urls import reverse_lazy
-from django_htmx.http import retarget
+from django_htmx.http import (
+    retarget,
+    HttpResponseClientRefresh,
+)
 from django.views.generic import (
     ListView,
     DetailView,
@@ -50,3 +56,7 @@ class VideoCreateView(VideoCreateMixin):
             )
             return retarget(response, "#downloadForm")
         return super().form_invalid(form)
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        valid = super().form_valid(form)
+        return HttpResponseClientRefresh()
