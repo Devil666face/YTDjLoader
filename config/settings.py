@@ -117,7 +117,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 CSRF_COOKIE_DOMAIN = ["127.0.0.1", os.getenv("CSRF_COOKIE_DOMAIN", "*")]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8080",
+    "http://127.0.0.1:8000",
     os.getenv("CSRF_TRUSTED_ORIGINS", "http://*"),
 ]
 

@@ -11,8 +11,15 @@ from django.dispatch import receiver
 
 
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        db_index=True,
+        verbose_name="Created",
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Updated",
+    )
 
     class Meta:
         abstract = True
@@ -23,14 +30,6 @@ class Video(BaseModel):
         max_length=255,
         db_index=True,
         verbose_name="Video title",
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Creatad",
-    )
-    update_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Updated",
     )
     href = models.URLField(
         max_length=200,
