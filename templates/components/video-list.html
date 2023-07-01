@@ -1,0 +1,16 @@
+{% for video in video_list %}
+{% if video.title %}
+<div class="card m-4" style="">
+  <img class="card-img-top" src="{{video.preview.url}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{video.title|capfirst}}</h5>
+  </div>
+  <div class="card-body">
+    <a href="{{video.href}}" class="card-link btn btn-outline-danger">YouTube</a>
+    <a href="{{video.download_url}}" class="card-link btn btn-outline-info">Download</a>
+  </div>
+</div>
+{% else %}
+Loading. Please wait.<br>
+{% endif %}
+{% endfor %}

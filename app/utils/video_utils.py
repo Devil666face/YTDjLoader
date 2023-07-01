@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import (
     Any,
@@ -8,7 +9,19 @@ from typing import (
 from pytube import YouTube
 from urllib import request
 from config.settings import MEDIA_ROOT
-from pytube.streams import os
+
+from concurrent.futures import ThreadPoolExecutor
+from functools import wraps
+
+_DEFAULT_POOL = ThreadPoolExecutor()
+
+
+def threadpool(f, executor=None):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        return (executor or _DEFAULT_POOL).submit(f, *args, **kwargs)
+
+    return wrap
 
 
 class YouTubeAPI(YouTube):
@@ -39,3 +52,14 @@ class YouTubeAPI(YouTube):
         os.makedirs(full_file_path.parent, exist_ok=True)
         request.urlretrieve(self.thumbnail_url, full_file_path)
         return file_path
+
+    @property
+    def download_url(self) -> str:
+        url = (
+            self.streams.filter(progressive=True, file_extension="mp4")
+            .order_by("resolution")
+            .desc()
+            .first()
+            .url
+        )
+        return url

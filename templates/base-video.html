@@ -4,9 +4,10 @@
 {% endblock %}
 {% block content %}
 <main class="w-100 m-auto">
-  {% for video in video_list %}
-  {{video.href}}
-  {% endfor %}
+  <div id="video-list">
+    {% include 'components/video-list.html' %}
+  </div>
+  <div hx-trigger="every 1s" hx-target="#video-list" hx-get="{% url 'video:video_list' %}"></div>
 
   {% include 'components/modal-button.html' with
   btn_text='Download video'

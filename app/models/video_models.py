@@ -2,10 +2,12 @@ from typing import Any, Iterable, Optional
 from uuid import uuid4
 
 from pytube.streams import os
-from app.utils.video_utils import YouTubeAPI
+from app.utils.video_utils import YouTubeAPI, threadpool
 from django.db import models
 from django.urls import reverse
 from django.core.files import File
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class BaseModel(models.Model):
@@ -43,6 +45,10 @@ class Video(BaseModel):
         blank=True,
         verbose_name="Preview",
     )
+    download_url = models.URLField(
+        blank=True,
+        verbose_name="Download url",
+    )
     file = models.FileField(
         upload_to="videos/%Y/%m/%d/",
         verbose_name="Video file",
@@ -62,14 +68,28 @@ class Video(BaseModel):
         using: Optional[str] = ...,
         update_fields: Optional[Iterable[str]] = ...,
     ) -> None:
+        return super().save()
+
+    @threadpool
+    def api(self):
+        if not self.href:
+            return
         _ = YouTubeAPI(url=self.href)
         self.title = _.title
         self.preview = _.preview(
             file_path=self.preview.field.generate_filename(self, f"{self.title}.jpg")
         )
-        return super().save()
+        self.download_url = _.download_url
+        self.save()
 
     class Meta:
         verbose_name = "Video"
         verbose_name_plural = "Videos"
         ordering = ["-created_at"]
+
+
+@receiver(post_save, sender=Video, dispatch_uid="update_instance_for_api")
+def update_instance_for_api(sender, instance, **kwargs):
+    if instance.title:
+        return
+    instance.api()
