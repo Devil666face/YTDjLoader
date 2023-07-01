@@ -1,3 +1,8 @@
+<script type="text/javascript" defer>
+  if (!document.getElementById('video-list')) {
+    window.location.replace("{% url 'video:video_list' %}");
+  }
+</script>
 <div class="container">
   {% for video in video_list %}
   <div class="card m-4">
