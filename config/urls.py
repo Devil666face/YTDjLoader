@@ -3,12 +3,8 @@ from django.urls import (
     path,
     include,
 )
-from config.settings import (
-    DEBUG,
-    MEDIA_URL,
-    MEDIA_ROOT,
-)
 from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -16,5 +12,4 @@ urlpatterns = [
     path("video/", include("app.urls.video_urls")),
 ]
 
-if DEBUG:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
