@@ -10,19 +10,6 @@ from pytube import YouTube
 from urllib import request
 from config.settings import MEDIA_ROOT
 
-from concurrent.futures import ThreadPoolExecutor
-from functools import wraps
-
-_DEFAULT_POOL = ThreadPoolExecutor()
-
-
-def threadpool(f, executor=None):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        return (executor or _DEFAULT_POOL).submit(f, *args, **kwargs)
-
-    return wrap
-
 
 class YouTubeAPI(YouTube):
     def __init__(

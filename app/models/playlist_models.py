@@ -1,13 +1,11 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from app.models.video_models import (
-    BaseModel,
-    Video,
-    threadpool,
-)
+from app.models.video_models import Video
+from app.models.base_models import BaseModel
 from django.db import models
 from django.urls import reverse
 from app.utils.playlist_utils import PlaylistAPI
+from app.utils.thread_utils import threadpool
 
 
 class Playlist(BaseModel):
@@ -24,6 +22,18 @@ class Playlist(BaseModel):
         default=False,
         verbose_name="Download status",
     )
+    video_count = models.IntegerField(
+        default=0,
+        verbose_name="Count of videos",
+    )
+    video_init_count = models.IntegerField(
+        default=0,
+        verbose_name="Count of initial videos",
+    )
+    is_all_video_init = models.BooleanField(
+        default=False,
+        verbose_name="All video initial status",
+    )
 
     def __str__(self) -> str:
         return self.title
@@ -37,7 +47,9 @@ class Playlist(BaseModel):
             return
         _ = PlaylistAPI(url=self.href)
         self.title = _.title
-        (Video(href=url, playlist=self).save() for url in _.video_list)
+        self.video_count = _.video_count
+        for url in _.video_list:
+            Video(href=url, playlist=self).save()
         self.save()
 
     class Meta:
