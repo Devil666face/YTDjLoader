@@ -1,6 +1,7 @@
 from django.contrib import admin
-from app.models.video_models import (
+from app.models import (
     Video,
+    Playlist,
 )
 
 
@@ -16,4 +17,9 @@ class VideoAdminView(BaseAdminView):
     pass
 
 
+class PlaylistAdminView(BaseAdminView):
+    pass
+
+
 admin.site.register(Video, VideoAdminView)
+admin.site.register(Playlist, PlaylistAdminView)

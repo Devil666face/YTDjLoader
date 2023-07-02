@@ -1,11 +1,11 @@
-from typing import Any, Iterable, Optional
-from uuid import uuid4
-
-from pytube.streams import os
+from typing import (
+    Any,
+    Iterable,
+    Optional,
+)
 from app.utils.video_utils import YouTubeAPI, threadpool
 from django.db import models
 from django.urls import reverse
-from django.core.files import File
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -28,11 +28,11 @@ class BaseModel(models.Model):
 class Video(BaseModel):
     title = models.CharField(
         max_length=255,
+        blank=True,
         db_index=True,
         verbose_name="Video title",
     )
     href = models.URLField(
-        max_length=200,
         verbose_name="Url to video",
     )
     is_downloaded = models.BooleanField(
@@ -53,21 +53,20 @@ class Video(BaseModel):
         verbose_name="Video file",
         blank=True,
     )
+    playlist = models.ForeignKey(
+        "Playlist",
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        verbose_name="Playlist",
+        db_index=True,
+    )
 
     def __str__(self) -> str:
         return self.title
 
     def get_absolute_url(self):
         return reverse("video:video", kwargs={"pk": self.pk})
-
-    def save(
-        self,
-        force_insert: bool = ...,
-        force_update: bool = ...,
-        using: Optional[str] = ...,
-        update_fields: Optional[Iterable[str]] = ...,
-    ) -> None:
-        return super().save()
 
     @threadpool
     def api(self):
@@ -89,6 +88,6 @@ class Video(BaseModel):
 
 @receiver(post_save, sender=Video, dispatch_uid="update_instance_for_api")
 def update_instance_for_api(sender, instance, **kwargs):
-    if instance.title:
+    if instance.title != "":
         return
     instance.api()
