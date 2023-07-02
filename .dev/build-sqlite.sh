@@ -19,5 +19,7 @@ export DJANGO_SUPERUSER_PASSWORD=Qwerty123
 --include-data-dir=./venv/lib/python3.10/site-packages/django=django main.py
 # make release archive
 ARCHIVE_NAME="${PWD##*/}.tgz"
-tar -cvzf $ARCHIVE_NAME main.bin static/ media/ templates/ db.sqlite3
+cp .dev/install.sh .
+cp .dev/ytdjloader.service .
+tar -cvzf $ARCHIVE_NAME main.bin static/ media/ templates/ db.sqlite3 install.sh ytdjloader.service
 mkdir -p ./dist && mv $ARCHIVE_NAME ./dist

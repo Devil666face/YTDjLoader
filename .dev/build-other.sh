@@ -29,6 +29,8 @@ mv manage.dist .manage.dist
 ln -s .manage.dist/manage.bin manage.bin
 # make release archive
 ARCHIVE_NAME="${PWD##*/}.tgz"
-tar -cvzf $ARCHIVE_NAME main.bin manage.bin .manage.dist static/ media/ templates/
+cp .dev/install.sh .
+cp .dev/ytdjloader.service .
+tar -cvzf $ARCHIVE_NAME main.bin manage.bin .manage.dist static/ media/ templates/ install.sh ytdjloader.service
 mkdir -p ./dist && mv $ARCHIVE_NAME ./dist
 # Use manage.dist/manage.bin migrate for make migrations
