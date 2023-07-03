@@ -12,7 +12,7 @@ export DJANGO_SUPERUSER_PASSWORD=Qwerty123
 --standalone \
 --follow-imports \
 --include-plugin-directory=./venv/lib/python3.10/site-packages/django \
---include-plugin-directory=./venv/lib/python3.10/site-packages/waitress \
+--include-plugin-directory=./venv/lib/python3.10/site-packages/gunicorn \
 --include-plugin-directory=./venv/lib/python3.10/site-packages/whitenoise \
 --include-plugin-directory=./config \
 --include-plugin-directory=./app \
