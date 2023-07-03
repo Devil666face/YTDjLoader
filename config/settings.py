@@ -123,4 +123,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 CSRF_USE_SESSIONS = True
 
-print(locals())
+# SECURE_SSL_REDIRECT = True
+
+# SECURE_SSL_HOST = "https://localhost"

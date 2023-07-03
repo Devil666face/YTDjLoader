@@ -33,12 +33,23 @@ class StandaloneApplication(WSGIApplication):
 if __name__ == "__main__":
     host = os.getenv("HOST", "127.0.0.1")
     port = os.getenv("PORT", "8000")
+    accesslog = os.getenv("ACCESSLOG", "-")
+    errorlog = os.getenv("ERRORLOG", "-")
+    keyfile = os.getenv("KEYFILE", False)
+    certfile = os.getenv("CERTFILE", False)
 
     options = {
         "host": host,
         "port": port,
         "workers": (multiprocessing.cpu_count() * 2) + 1,
+        "accesslog": accesslog,
+        "errorlog": errorlog,
+        "threads": (multiprocessing.cpu_count() * 2) + 1,
     }
+    if keyfile:
+        options["keyfile"] = keyfile
+    if certfile:
+        options["certfile"] = certfile
     StandaloneApplication("config.wsgi:application", options).run()
 
     # serve(TransLogger(application), host=host, port=port)
