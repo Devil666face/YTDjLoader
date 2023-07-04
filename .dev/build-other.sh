@@ -14,8 +14,8 @@
 --include-plugin-directory=./venv/lib/python3.10/site-packages/psycopg2 \
 --include-plugin-directory=./config \
 --include-plugin-directory=./app \
---include-data-dir=./venv/lib/python3.10/site-packages/psycopg2 \
---include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs \
+--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2=psycopg2 \
+--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs=psycopg2_binary.libs \
 --include-data-dir=./venv/lib/python3.10/site-packages/django=django main.py
 # build manage
 ./venv/bin/python -m nuitka \
@@ -26,8 +26,8 @@
 --include-plugin-directory=./venv/lib/python3.10/site-packages/psycopg2 \
 --include-plugin-directory=./config \
 --include-plugin-directory=./app \
---include-data-dir=./venv/lib/python3.10/site-packages/psycopg2 \
---include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs \
+--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2=psycopg2 \
+--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs=psycopg2_binary.libs \
 --include-data-dir=./venv/lib/python3.10/site-packages/django=django manage.py
 cp -r ./venv/lib/python3.10/site-packages/django/core manage.dist/django
 cp -r ./venv/lib/python3.10/site-packages/django/contrib manage.dist/django
