@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
+from django.db.models import Q
 
 
 class Video(BaseModel):
@@ -21,6 +22,7 @@ class Video(BaseModel):
         verbose_name="Video title",
     )
     href = models.URLField(
+        max_length=2048,
         verbose_name="Url to video",
     )
     is_downloaded = models.BooleanField(
@@ -70,13 +72,21 @@ class Video(BaseModel):
             self.save()
         if self.playlist == None:
             return
-        self.successful_init_video_for_playlist()
 
-    def successful_init_video_for_playlist(self) -> None:
+        self.recalculate_playlist()
+
+    def recalculate_playlist(self) -> None:
         from app.models.playlist_models import Playlist
 
         playlist = Playlist.objects.get(pk=self.playlist.pk)
-        playlist.video_init_count += 1
+        videos_for_palylist_count = Video.objects.filter(
+            Q(playlist_id=self.playlist.pk), ~Q(title="")
+        ).count()
+        if playlist.video_init_count >= videos_for_palylist_count:
+            return
+        playlist.video_init_count = videos_for_palylist_count
+        if playlist.video_count == playlist.video_init_count:
+            playlist.is_all_video_init = True
         with transaction.atomic():
             playlist.save()
 
