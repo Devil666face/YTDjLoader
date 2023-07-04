@@ -41,16 +41,17 @@ class Playlist(BaseModel):
     def get_absolute_url(self):
         return reverse("playlist:playlist", kwargs={"pk": self.pk})
 
-    @threadpool
+    # @threadpool
     def api(self):
         if not self.href:
             return
         _ = PlaylistAPI(url=self.href)
         self.title = _.title
         self.video_count = _.video_count
-        for url in _.video_list:
-            Video(href=url, playlist=self).save()
         self.save()
+        for url in _.video_list:
+            video = Video(href=url, playlist=self)
+            video.save()
 
     class Meta:
         verbose_name = "Playlist"

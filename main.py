@@ -39,7 +39,6 @@ if __name__ == "__main__":
     host = os.getenv("HOST", "127.0.0.1")
     port = os.getenv("PORT", "8000")
     workers = os.getenv("WORKERS", (multiprocessing.cpu_count() * 2) + 1)
-    threads = os.getenv("THREADS", (multiprocessing.cpu_count() * 2) + 1)
     accesslog = os.getenv("ACCESSLOG", "-")
     errorlog = os.getenv("ERRORLOG", "-")
     keyfile = os.getenv("KEYFILE", False)
@@ -49,7 +48,6 @@ if __name__ == "__main__":
         "host": host,
         "port": port,
         "workers": workers,
-        "threads": threads,
         "accesslog": accesslog,
         "errorlog": errorlog,
     }

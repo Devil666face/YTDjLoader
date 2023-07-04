@@ -10,6 +10,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db import transaction
 
 
 class Video(BaseModel):
@@ -61,22 +62,23 @@ class Video(BaseModel):
             return
         _ = YouTubeAPI(url=self.href)
         self.title = _.title
-        print(self.title)
         self.preview = _.preview(
             file_path=self.preview.field.generate_filename(self, f"{self.title}.jpg")
         )
         self.download_url = _.download_url
-        self.save()
+        with transaction.atomic():
+            self.save()
         if self.playlist == None:
             return
-        self.successful_init_video()
+        self.successful_init_video_for_playlist()
 
-    def successful_init_video(self) -> None:
+    def successful_init_video_for_playlist(self) -> None:
         from app.models.playlist_models import Playlist
 
         playlist = Playlist.objects.get(pk=self.playlist.pk)
         playlist.video_init_count += 1
-        playlist.save()
+        with transaction.atomic():
+            playlist.save()
 
     class Meta:
         verbose_name = "Video"
