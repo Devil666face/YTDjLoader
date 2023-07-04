@@ -11,7 +11,12 @@ class BootstrapForm(forms.ModelForm):
 
 
 class VideoCreateForm(BootstrapForm):
-    start_with_list = (r"https://www.youtube.com/", r"https://www.youtu.be")
+    start_with_list = (
+        r"https://www.youtube.com/",
+        r"https://www.youtu.be",
+        r"https://youtube.com/",
+        r"https://youtu.be",
+    )
 
     class Meta:
         model = Video

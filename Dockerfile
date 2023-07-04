@@ -3,7 +3,7 @@ ENV REPO_NAME=YTDjLoader
 ENV GIT_LINK="https://github.com/Devil666face/${REPO_NAME}.git"
 RUN apt-get update -y && \
     apt-get install -y \
-      gcc make patchelf wget tar git libsqlite3-0
+      gcc make patchelf wget tar git libsqlite3-0 ccache
 # pkg-config
 RUN git clone "${GIT_LINK}"
 WORKDIR /${REPO_NAME}
