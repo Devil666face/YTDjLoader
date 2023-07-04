@@ -32,14 +32,17 @@ class Video(BaseModel):
     preview = models.ImageField(
         upload_to="preview/%Y/%m/%d/",
         blank=True,
+        max_length=1024,
         verbose_name="Preview",
     )
     download_url = models.URLField(
         blank=True,
+        max_length=2048,
         verbose_name="Download url",
     )
     file = models.FileField(
         upload_to="videos/%Y/%m/%d/",
+        max_length=1024,
         verbose_name="Video file",
         blank=True,
     )
@@ -98,6 +101,7 @@ class Video(BaseModel):
 
 @receiver(post_save, sender=Video, dispatch_uid="update_instance_for_api")
 def update_instance_for_api(sender, instance, **kwargs):
+    print(instance.title, "this title from psql")
     if instance.title != "":
         return
     instance.api()

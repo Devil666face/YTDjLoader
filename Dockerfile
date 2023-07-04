@@ -9,5 +9,5 @@ RUN git clone "${GIT_LINK}"
 WORKDIR /${REPO_NAME}
 RUN .dev/init.sh
 RUN ./venv/bin/pip install nuitka
-CMD ["/bin/bash", "-c", ".dev/build-sqlite.sh"]
-# CMD ["/bin/bash", "-c", ".dev/build-other.sh"]
+# CMD ["/bin/bash", "-c", ".dev/build-sqlite.sh"]
+CMD ["/bin/bash", "-c", ".dev/build-other.sh"]
