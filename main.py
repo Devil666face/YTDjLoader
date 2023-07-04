@@ -1,5 +1,6 @@
 #!./venv/bin/python
 import os
+from pathlib import Path
 
 # from waitress import serve
 # from config.wsgi import application
@@ -7,7 +8,11 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv()
+
+BASE_DIR = Path(os.getcwd()).resolve()
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 
 import multiprocessing
 
