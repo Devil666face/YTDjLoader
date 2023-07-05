@@ -101,7 +101,6 @@ class Video(BaseModel):
 
 @receiver(post_save, sender=Video, dispatch_uid="update_instance_for_api")
 def update_instance_for_api(sender, instance, **kwargs):
-    print(instance.title, "this title from psql")
     if instance.title != "":
         return
     instance.api()
