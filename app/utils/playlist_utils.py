@@ -4,7 +4,6 @@ from typing import (
     Optional,
 )
 from pytube import Playlist
-from config.settings import MEDIA_ROOT
 
 
 class PlaylistAPI(Playlist):

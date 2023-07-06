@@ -1,17 +1,14 @@
 from typing import Any, Dict
 from django.db.models import QuerySet
 from django.forms.models import BaseModelForm
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect
+from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormMixin
 from django_htmx.http import HttpResponseClientRedirect
-from app.models.playlist_models import Playlist
 from app.mixins.playlist_mixins import (
     PlaylistListViewMixin,
     PlaylistCreateMixin,
 )
-from app.views.video_views import VideoCreateView, VideoListView
+from app.views.video_views import VideoListView
 from app.models.video_models import Video
 
 

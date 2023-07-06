@@ -8,11 +8,10 @@ from django.http import (
 )
 from django.urls import reverse_lazy
 from django_htmx.http import (
+    HttpResponseClientRedirect,
     retarget,
-    HttpResponseClientRefresh,
 )
 from django.views.generic import (
-    ListView,
     DetailView,
 )
 from app.mixins.video_mixins import (
@@ -33,6 +32,10 @@ class VideoListView(VideoListViewMixin):
                 self.response.status_code = 286
                 return self.response
         return super().get(request, *args, **kwargs)
+
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = super().get_queryset()
+        return queryset.filter(playlist_id=None)
 
 
 class VideoDetailView(VideoMixin, DetailView):
@@ -58,4 +61,4 @@ class VideoCreateView(VideoCreateMixin):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         valid = super().form_valid(form)
-        return HttpResponseClientRefresh()
+        return HttpResponseClientRedirect(reverse_lazy("video:video_list"))

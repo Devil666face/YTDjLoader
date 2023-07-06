@@ -5,7 +5,6 @@ from app.models.base_models import BaseModel
 from django.db import models
 from django.urls import reverse
 from app.utils.playlist_utils import PlaylistAPI
-from app.utils.thread_utils import threadpool
 
 
 class Playlist(BaseModel):

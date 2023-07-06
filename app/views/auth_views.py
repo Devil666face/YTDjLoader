@@ -1,13 +1,8 @@
-from django.shortcuts import render
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
     PasswordChangeView,
     PasswordChangeDoneView,
-)
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
 from app.forms.auth_forms import (
