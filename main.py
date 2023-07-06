@@ -43,6 +43,7 @@ if __name__ == "__main__":
     errorlog = os.getenv("ERRORLOG", "-")
     keyfile = os.getenv("KEYFILE", False)
     certfile = os.getenv("CERTFILE", False)
+    reload = True if os.getenv("RELOAD", False) == "True" else False
 
     options = {
         "host": host,
@@ -50,6 +51,7 @@ if __name__ == "__main__":
         "workers": workers,
         "accesslog": accesslog,
         "errorlog": errorlog,
+        "reload": reload,
     }
     if keyfile:
         options["keyfile"] = keyfile

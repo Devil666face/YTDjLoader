@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv(
     "SECRET_KEY", "django-insecure-*#^gij572j)9sm&b6xnv(7zyy7e*)8m4l)im8l8dd6en^&r71i"
 )
 
-DEBUG = False if os.getenv("DEBUG", True) == "False" else True
+DEBUG = True if os.getenv("DEBUG", False) == "True" else False
 
 ALLOWED_HOSTS = ["127.0.0.1", os.getenv("ALLOWED_HOSTS", "*")]
 
@@ -140,4 +140,6 @@ CSRF_USE_SESSIONS = True
 
 # SECURE_SSL_REDIRECT = True
 
-# SECURE_SSL_HOST = "https://localhost"
+# SECURE_SSL_HOST = ["https://127.0.0.1:8000"]
+
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

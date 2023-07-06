@@ -34,8 +34,7 @@ class VideoListView(VideoListViewMixin):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self) -> QuerySet[Any]:
-        queryset = super().get_queryset()
-        return queryset.filter(playlist_id=None)
+        return self.model.objects.filter(playlist_id=None)
 
 
 class VideoDetailView(VideoMixin, DetailView):
