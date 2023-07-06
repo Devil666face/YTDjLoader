@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+{% endblock %}
+{% block content %}
+{% include 'components/navbar.html' %}
+<main class="w-100 m-auto">
+	<div id="video-list">
+		{% include 'components/video-list.html' %}
+	</div>
+	{% block app-content %}{% endblock %}
+	{% include 'components/modal-forms.html' %}
+</main>
+{% endblock %}
+{% block js %}{% endblock %}

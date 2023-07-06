@@ -1,26 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'base-app.html' %}
 {% load static %}
-{% block css %}
+{% block app-content %}
+<div hx-trigger="every 2s" hx-target="#video-list" hx-get="{% url 'video:video_list' %}"
+  hx-swap="innerHTML focus-scroll:true"></div>
 {% endblock %}
-{% block content %}
-{% include 'components/navbar.html' %}
-<main class="w-100 m-auto">
-  <div id="video-list">
-    {% include 'components/video-list.html' %}
-  </div>
-  <div hx-trigger="every 1s" hx-target="#video-list" hx-get="{% url 'video:video_list' %}"
-    hx-swap="innerHTML focus-scroll:true"></div>
-
-  {% url 'video:video_create' as create_url %}
-
-  {% include 'components/modal.html' with
-  modal_title='Create video'
-  btn_text='Download'
-  id='downloadFormModal'
-  modal_form=video_create_form
-  modal_action=create_url
-  form_id='downloadForm' %}
-</main>
-{% endblock %}
-
-{% block js %}{% endblock %}

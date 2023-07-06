@@ -23,8 +23,6 @@ from app.mixins.video_mixins import (
 
 
 class VideoListView(VideoListViewMixin):
-    template_name = "base-video.html"
-
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         if self.request.htmx and self.request.headers.get("HX-Target", False):
             """If htmx and auto-reload request"""
@@ -44,17 +42,18 @@ class VideoDetailView(VideoMixin, DetailView):
 class VideoCreateView(VideoCreateMixin):
     def form_invalid(self, form: BaseModelForm) -> HttpResponse:
         if self.request.htmx:
+            self.template_name = "components/form.html"
             extra_context = {
                 "action": self.request.path,
-                "id": "downloadForm",
-                "btn": "Download",
+                "id": self.form_id,
+                "btn": self.button_text,
             }
             response = render(
                 self.request,
                 self.template_name,
                 context={**self.get_context_data(), **extra_context},
             )
-            return retarget(response, "#downloadForm")
+            return retarget(response, f"#{self.form_id}")
         return super().form_invalid(form)
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:

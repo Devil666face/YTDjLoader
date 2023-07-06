@@ -1,0 +1,19 @@
+{% url 'video:video_create' as video_create_url %}
+
+{% include 'components/modal.html' with
+modal_title='Create video'
+btn_text='Download'
+id='videoFormModal'
+modal_form=video_create_form
+modal_action=video_create_url
+form_id='videoForm' %}
+
+{% url 'playlist:playlist_create' as playlist_create_url %}
+
+{% include 'components/modal.html' with
+modal_title='Create playlist'
+btn_text='Create'
+id='playlistFormModal'
+modal_form=playlist_create_form
+modal_action=playlist_create_url
+form_id='playlistForm' %}

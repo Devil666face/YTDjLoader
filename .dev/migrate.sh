@@ -1,9 +1,11 @@
 #!/bin/bash
 # sudo -u postgres 
-PSQL_PREFIX="psql -E -d db -U superuser -h localhost -c"
+PSQL_PREFIX="psql -E -h localhost -d db -c"
 # rm -rf app/migrations/*
 # ./venv/bin/python manage.py makemigrations app
 source .env
+export PGPASSWORD="$PSQL_PASSWORD"
+export PGUSER="$PSQL_USER"
 if [[ "$PSQL" = "True" ]]; then
 	$PSQL_PREFIX "DROP SCHEMA public CASCADE;"
 	$PSQL_PREFIX "CREATE SCHEMA public;"
