@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormMixin
-from django_htmx.http import HttpResponseLocation
+from django_htmx.http import HttpResponseClientRedirect
 from app.models.playlist_models import Playlist
 from app.mixins.playlist_mixins import (
     PlaylistListViewMixin,
@@ -33,11 +33,6 @@ class PlaylistListView(PlaylistListViewMixin, VideoListView):
 class PlaylistCreateView(PlaylistCreateMixin):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         valid = super().form_valid(form)
-        return HttpResponseLocation(
+        return HttpResponseClientRedirect(
             reverse_lazy("playlist:playlist", kwargs={"playlist_id": self.object.pk})
         )
-
-    #     return HttpResponseRedirect(self.get_success_url())
-
-    # def get_success_url(self) -> str:
-    #     reverse_lazy("playlist:playlist", kwargs={"playlist_id": self.object.pk})

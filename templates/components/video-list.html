@@ -27,6 +27,11 @@
         <a href="{{video.href}}" class="card-link" target="_blank" rel="noopener noreferrer">video</a>
       </h5>
     </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"> <a href="{{video.href}}" class="card-link btn btn-outline-danger" target="_blank"
+          rel="noopener noreferrer">YouTube</a>
+      </li>
+    </ul>
     {% endif %}
     <div class="card-footer text-body-secondary">
       {{video.created_at}} - {{video.created_at|timesince}} ago

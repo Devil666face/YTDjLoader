@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # serve(TransLogger(application), host=host, port=port)
 
 """Imports for nuitka"""
-import fractions
-import pytube
-import django_htmx
-import django_htmx.middleware
+import fractions  # noqa
+import pytube  # noqa
+import django_htmx  # noqa
+import django_htmx.middleware  # noqa
