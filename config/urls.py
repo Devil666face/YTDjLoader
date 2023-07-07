@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path("", include("app.urls.app_urls")),
     path("admin/", admin.site.urls),
     path("auth/", include("app.urls.auth_urls")),
     path("video/", include("app.urls.video_urls")),

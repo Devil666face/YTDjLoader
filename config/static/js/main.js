@@ -3,6 +3,8 @@ function setTheme(event) {
 	var navbar = document.getElementById('navbar');
 	navbar.setAttribute('data-bs-theme',element.getAttribute('data-bs-theme-value'));
 }
-for (id in ['light', 'dark', 'auto']) {
-	document.getElementById('bd-theme-'+id).addEventListener('click', setTheme);
+
+themeIdList = ['light', 'dark', 'auto'];
+for (id in themeIdList) {
+	document.getElementById('bd-theme-'+themeIdList[id]).addEventListener('click', setTheme);
 }

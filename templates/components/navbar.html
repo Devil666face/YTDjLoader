@@ -1,26 +1,81 @@
+<nav class="navbar bg-body-tertiary fixed-top" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand p-0" href="/">
+      {% include 'components/icon.html' with src='video' trigger='hover' s='42.5' %}
+    </a>
+    YouTube Loader
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          <a class="navbar-brand p-0" href="/">
+            {% include 'components/icon.html' with src='video' trigger='hover' s='42.5' %}
+          </a>
+        </h5>
+        YouTube Loader
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Create
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item">
+                {% include 'components/modal-button.html' with
+                btn_text='Create video'
+                id='videoFormModal'
+                class='nav-link' %}
+              </li>
+              <li class="dropdown-item">
+                {% include 'components/modal-button.html' with
+                btn_text='Create playlist'
+                id='playlistFormModal'
+                class='nav-link' %}
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Palylist
+            </a>
+            <ul class="dropdown-menu">
+              {% for playlist in playlist_list %}
+              <li class="dropdown-item">
+                <div class="nav-link playlist-button" id="playlist_{{playlist.pk}}" hx-trigger="click"
+                  hx-target="#video-list" hx-get="{% url 'playlist:playlist' playlist.pk %}"
+                  hx-swap="innerHTML focus-scroll:true" hx-push-url="true">
+                  {{playlist|capfirst|truncatechars:40}}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin:index' %}" role="button" aria-expanded="false">
+              Admin
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+{% comment %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="auto" id="navbar">
   <div class="container-fluid">
-    <div class="navbar-brand p-0">
-      {% include 'components/icon.html' with src='video' trigger='hover' s='42.5' %}
-    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          {% include 'components/modal-button.html' with
-          btn_text='Create video'
-          id='videoFormModal'
-          class='nav-link' %}
-        </li>
-        <li class="nav-item">
-          {% include 'components/modal-button.html' with
-          btn_text='Create playlist'
-          id='playlistFormModal'
-          class='nav-link' %}
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -29,3 +84,4 @@
     </div>
   </div>
 </nav>
+{% endcomment %}

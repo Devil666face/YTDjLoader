@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from app.forms.playlist_forms import PlaylistCreateForm
 from app.forms.video_forms import VideoCreateForm
 from app.models.video_models import Video
+from app.models.playlist_models import Playlist
 
 
 class LoginMixin(LoginRequiredMixin):
@@ -28,6 +29,7 @@ class VideoListViewMixin(VideoMixin, ListView):
         extra_context = {
             "video_create_form": VideoCreateForm(),
             "playlist_create_form": PlaylistCreateForm(),
+            "playlist_list": Playlist.objects.all(),
         }
         return {**super().get_context_data(**kwargs), **extra_context}
 
