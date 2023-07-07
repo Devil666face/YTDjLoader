@@ -43,7 +43,7 @@ class Video(BaseModel):
     )
     playlist = models.ForeignKey(
         "Playlist",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
         verbose_name="Playlist",

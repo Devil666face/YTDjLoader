@@ -24,7 +24,7 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Create
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu border-0">
               <li class="dropdown-item">
                 {% include 'components/modal-button.html' with
                 btn_text='Create video'
@@ -45,12 +45,12 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Palylist
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu border-0">
               {% for playlist in playlist_list %}
-              <li class="dropdown-item">
-                <div class="nav-link playlist-button" id="playlist_{{playlist.pk}}" hx-trigger="click"
-                  hx-target="#video-list" hx-get="{% url 'playlist:playlist' playlist.pk %}"
-                  hx-swap="innerHTML focus-scroll:true" hx-push-url="true">
+              <li class="dropdown-item playlist-button" id="playlist_{{playlist.pk}}">
+                <div class="nav-link" hx-trigger="click" hx-target="#video-list"
+                  hx-get="{% url 'playlist:playlist' playlist.pk %}" hx-swap="innerHTML focus-scroll:true"
+                  hx-push-url="true">
                   {{playlist|capfirst|truncatechars:40}}
                 </div>
               </li>
@@ -67,21 +67,3 @@
     </div>
   </div>
 </nav>
-{% comment %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="auto" id="navbar">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-{% endcomment %}
