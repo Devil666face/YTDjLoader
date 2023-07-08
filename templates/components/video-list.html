@@ -3,7 +3,7 @@
     window.location.replace("{% url 'video:video_list' %}");
   }
 </script>
-<div class="container">
+<div class="container pt-5">
   {% for video in video_list %}
   <div class="card m-4">
     {% if video.title %}
