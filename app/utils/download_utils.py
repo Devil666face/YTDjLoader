@@ -1,5 +1,5 @@
 import os
-from typing import Any, List, Tuple
+from typing import List, Tuple
 from django.db.models import QuerySet
 from app.models.video_models import Video
 from pathlib import Path

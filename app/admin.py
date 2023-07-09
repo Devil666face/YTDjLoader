@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib import admin
 from django.db.models import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
 from app.models import (
     Video,
     Playlist,
