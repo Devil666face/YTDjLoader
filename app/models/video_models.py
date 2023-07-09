@@ -1,3 +1,4 @@
+import re
 from app.models.base_models import BaseModel
 from app.utils.video_utils import YouTubeAPI
 from app.utils.thread_utils import threadpool
@@ -7,6 +8,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
 from django.db.models import Q
+
+unsafe_symdols = "/\\:*?<>|()'"
 
 
 class Video(BaseModel):
@@ -52,6 +55,17 @@ class Video(BaseModel):
 
     def __str__(self) -> str:
         return self.title
+
+    def replace(self, field: str):
+        return "".join(c for c in field if c not in unsafe_symdols)
+
+    @property
+    def title_safe(self) -> str:
+        return self.replace(self.title)
+
+    @property
+    def playlist_safe(self) -> str:
+        return self.replace(str(self.playlist))
 
     def get_absolute_url(self):
         return reverse("video:video", kwargs={"pk": self.pk})

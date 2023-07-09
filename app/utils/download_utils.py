@@ -4,7 +4,6 @@ from django.db.models import QuerySet
 from app.models.video_models import Video
 from pathlib import Path
 from config.settings import MEDIA_ROOT, MEDIA_URL
-from django.template.defaultfilters import slugify
 
 
 class Download:
@@ -26,12 +25,9 @@ class Download:
 
     @property
     def file_name(self) -> str:
-        file_name = ""
         if self.queryset[0].playlist != None:
-            file_name = f"{self.queryset[0].playlist}"
-        else:
-            file_name = f"{self.queryset[0]}"
-        return f"{slugify(file_name)}.sh"
+            return f"{self.queryset[0].playlist_safe}.sh"
+        return f"{self.queryset[0].title_safe}.sh"
 
     @property
     def media_url(self) -> str:
@@ -55,7 +51,7 @@ class Download:
         return [*bash_sting, *wget_string]
 
     def get_wget_string(self, video: Video) -> str:
-        return f"wget -O '{video.title}.mp4' '{video.download_url}'"
+        return f"wget -O '{video.title_safe}.mp4' '{video.download_url}'"
 
     def save_data_in_file(self, data: str, file_path: Path) -> None:
         with open(file_path, "w", encoding="UTF-8") as file:
