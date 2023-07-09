@@ -11,12 +11,12 @@
     <div class="card-body">
       <h5 class="card-title">{{video.title|capfirst}}</h5>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"> <a href="{{video.href}}" class="card-link btn btn-outline-danger" target="_blank"
+    <ul class="list-group list-group-flush d-flex">
+      <li class="list-group-item">
+        <a href="{{video.href}}" class="card-link btn btn-outline-danger" target="_blank"
           rel="noopener noreferrer">YouTube</a>
-      </li>
-      <li class="list-group-item"> <a href="{{video.download_url}}" class="card-link btn btn-outline-info"
-          target="_blank" rel="noopener noreferrer">Download</a>
+        <a href="{{video.download_url}}" class="card-link btn btn-outline-info" target="_blank"
+          rel="noopener noreferrer">Download</a>
       </li>
     </ul>
     {% else %}
@@ -34,7 +34,7 @@
     </ul>
     {% endif %}
     <div class="card-footer text-body-secondary">
-      {{video.created_at}} - {{video.created_at|timesince}} ago
+      {{video.created_at}} - {{video.created_at|timesince}} ago {% if video.is_downloaded %}✅{% else %}❌{% endif %}
     </div>
   </div>
   {% endfor %}

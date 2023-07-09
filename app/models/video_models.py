@@ -56,6 +56,12 @@ class Video(BaseModel):
     def get_absolute_url(self):
         return reverse("video:video", kwargs={"pk": self.pk})
 
+    @property
+    def valid(self) -> bool:
+        if self.title != "" and self.download_url != "":
+            return True
+        return False
+
     @threadpool
     def api(self):
         if not self.href:
