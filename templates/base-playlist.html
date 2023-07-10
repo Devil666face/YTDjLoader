@@ -1,5 +1,6 @@
 {% extends 'base-app.html' %}
 {% load static %}
+{% block title %}Playlist | {{block.super}}{% endblock %}
 {% block app-content %}
 <div hx-trigger="every 2s" hx-target="#video-list" hx-get="{% url 'playlist:playlist' playlist_id %}"
 	hx-swap="innerHTML focus-scroll:true"></div>
