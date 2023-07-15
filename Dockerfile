@@ -1,4 +1,5 @@
 FROM debian:10
+ENV SQLITE_BUILD=True
 ENV REPO_NAME=YTDjLoader
 ENV GIT_LINK="https://github.com/Devil666face/${REPO_NAME}.git"
 RUN apt-get update -y && \
@@ -9,5 +10,6 @@ RUN git clone "${GIT_LINK}"
 WORKDIR /${REPO_NAME}
 RUN .dev/init.sh
 RUN ./venv/bin/pip install nuitka
+CMD ["/bin/bash", "-c", ".dev/build.sh"]
 # CMD ["/bin/bash", "-c", ".dev/build-sqlite.sh"]
-CMD ["/bin/bash", "-c", ".dev/build-other.sh"]
+# CMD ["/bin/bash", "-c", ".dev/build-other.sh"]
