@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     runs-on: [ubuntu-latest]
-    environment: env
+    # environment: env
     steps:
       - uses: actions/checkout@master
 
