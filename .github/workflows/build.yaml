@@ -16,6 +16,7 @@ on:
 jobs:
   build:
     runs-on: [ubuntu-latest]
+    environment: env
     steps:
       - uses: actions/checkout@master
 
@@ -23,6 +24,8 @@ jobs:
 
       - name: Build docker image and run container
         run: .dev/docker-build.sh
+        env:
+          SQLITE_BUILD: ${{ vars.SQLITE_BUILD }}
 
       - name: Set tag name
         run: echo "GITHUB_RELEASE_TAG=$(date +v%m.%d.%H.%M)" >> $GITHUB_ENV
