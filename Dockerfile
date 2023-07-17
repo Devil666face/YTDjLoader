@@ -1,5 +1,5 @@
 FROM debian:10
-ENV SQLITE_BUILD=True
+ENV SQLITE_BUILD=False
 ENV REPO_NAME=YTDjLoader
 ENV GIT_LINK="https://github.com/Devil666face/${REPO_NAME}.git"
 RUN apt-get update -y && \
