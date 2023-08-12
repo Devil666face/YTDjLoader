@@ -2,13 +2,13 @@
 ./venv/bin/python manage.py makemigrations
 ./venv/bin/python manage.py makemigrations app
 ./venv/bin/python manage.py collectstatic --no-input
-if [ "$SQLITE_BUILD" == "True" ]; then
+if [ "$SQLITE_BUILD" = "True" ]; then
 	./venv/bin/python manage.py migrate
 	./venv/bin/python manage.py createcachetable
 	export DJANGO_SUPERUSER_PASSWORD=Qwerty123
 	./venv/bin/python manage.py createsuperuser --username=superuser --email=artem1999k@gmail.com --no-input
 fi
-if [ "$SQLITE_BUILD" == "True" ]; then
+if [ "$SQLITE_BUILD" = "True" ]; then
 	./venv/bin/python -m nuitka \
 	--onefile \
 	--standalone \
@@ -52,7 +52,7 @@ ARCHIVE_NAME="${PWD##*/}.tgz"
 ARCHIVE_FILES="main.bin static/ media/ templates/ install.sh ytdjloader.service"
 cp .dev/install.sh .
 cp .dev/ytdjloader.service .
-if [ "$SQLITE_BUILD" == "True" ]; then
+if [ "$SQLITE_BUILD" = "True" ]; then
 	tar -cvzf $ARCHIVE_NAME $ARCHIVE_FILES db.sqlite3
 else
 	tar -cvzf $ARCHIVE_NAME $ARCHIVE_FILES migrate.bin

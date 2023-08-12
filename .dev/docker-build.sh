@@ -1,8 +1,8 @@
 #/bin/bash
-# SQLITE_BUILD=False
+# SQLITE_BUILD=True
 REPO_NAME="${PWD##*/}"
 REPO_NAME_LOWER="$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')"
-if [ "$SQLITE_BUILD" == "True" ]; then
+if [ "$SQLITE_BUILD" = "True" ]; then
   echo "SQLITE_BUILD=$SQLITE_BUILD Build with sqlite database"
 else
   echo "SQLITE_BUILD=$SQLITE_BUILD Build with manage.bin"
