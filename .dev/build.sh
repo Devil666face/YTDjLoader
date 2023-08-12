@@ -34,6 +34,7 @@ else
 	--include-data-dir=./venv/lib/python3.10/site-packages/django=django main.py
 	# build manage
 	./venv/bin/python -m nuitka \
+	--onefile \
 	--standalone \
 	--follow-imports \
 	--include-plugin-directory=./venv/lib/python3.10/site-packages/django \
