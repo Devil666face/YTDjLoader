@@ -54,7 +54,10 @@ else
 	# ln -s .manage.dist/manage.bin manage.bin
 fi
 ARCHIVE_NAME="${PWD##*/}.tgz"
-ARCHIVE_FILES="main.bin static/ media/ templates/ install.sh ytdjloader.service"
+ARCHIVE_FILES="main.bin media/ install.sh ytdjloader.service"
+# templates/ 
+# static/ 
+
 cp .dev/install.sh .
 cp .dev/ytdjloader.service .
 if [ "$SQLITE_BUILD" = "True" ]; then
