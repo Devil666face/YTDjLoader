@@ -8,6 +8,7 @@ base.tag_re = re.compile(base.tag_re.pattern, re.DOTALL)
 
 BASE_DIR = Path(os.getcwd()).resolve()
 
+
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = os.getenv(
@@ -46,7 +47,10 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates"), "./templates"],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+            os.path.join(Path(__file__).resolve().parent.parent, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -115,7 +119,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATIC_ROOT = (
+    os.path.join(Path(__file__).resolve().parent.parent, "static")
+    if os.getenv("STATIC_IN_BIN", False) == "True"
+    else os.path.join(BASE_DIR, "static")
+)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "config/static"),
