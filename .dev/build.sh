@@ -18,6 +18,8 @@ if [ "$SQLITE_BUILD" = "True" ]; then
 	--include-plugin-directory=./venv/lib/python3.10/site-packages/whitenoise \
 	--include-plugin-directory=./config \
 	--include-plugin-directory=./app \
+	--include-data-dir=./templates=templates \
+	--include-data-dir=./static=static \
 	--include-data-dir=./venv/lib/python3.10/site-packages/django=django main.py
 else
 	./venv/bin/python -m nuitka \
@@ -30,10 +32,13 @@ else
 	--include-plugin-directory=./venv/lib/python3.10/site-packages/psycopg2 \
 	--include-plugin-directory=./config \
 	--include-plugin-directory=./app \
+	--include-data-dir=./templates=templates \
+	--include-data-dir=./static=static \
 	--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs=psycopg2_binary.libs \
 	--include-data-dir=./venv/lib/python3.10/site-packages/django=django main.py
 	# build manage
 	./venv/bin/python -m nuitka \
+	--onefile \
 	--standalone \
 	--follow-imports \
 	--include-plugin-directory=./venv/lib/python3.10/site-packages/django \

@@ -1,11 +1,9 @@
 #!./venv/bin/python
 """Django's command-line utility for administrative tasks."""
 import os
-import sys
 import argparse
 import django
 
-from django.core.management import execute_from_command_line
 from django.core.management.commands import migrate
 from django.contrib.auth.management.commands import createsuperuser
 from django.core.management import call_command
@@ -21,7 +19,7 @@ def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
     try:
-        from django.core.management import execute_from_command_line
+        pass
 
     except ImportError as exc:
         raise ImportError(
@@ -29,7 +27,6 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    # execute_from_command_line()
     django.setup()
     if args.migrate:
         call_command(migrate.Command())
