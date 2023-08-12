@@ -42,11 +42,11 @@ else
 	--include-plugin-directory=./config \
 	--include-plugin-directory=./app \
 	--include-data-dir=./venv/lib/python3.10/site-packages/psycopg2_binary.libs=psycopg2_binary.libs \
-	--include-data-dir=./venv/lib/python3.10/site-packages/django=django migrate.py
-	# cp -r ./venv/lib/python3.10/site-packages/django/core manage.dist/django
-	# cp -r ./venv/lib/python3.10/site-packages/django/contrib manage.dist/django
-	# mv manage.dist .manage.dist
-	# ln -s .manage.dist/manage.bin manage.bin
+	--include-data-dir=./venv/lib/python3.10/site-packages/django=django manage.py
+	cp -r ./venv/lib/python3.10/site-packages/django/core manage.dist/django
+	cp -r ./venv/lib/python3.10/site-packages/django/contrib manage.dist/django
+	mv manage.dist .manage.dist
+	ln -s .manage.dist/manage.bin manage.bin
 fi
 ARCHIVE_NAME="${PWD##*/}.tgz"
 ARCHIVE_FILES="main.bin static/ media/ templates/ install.sh ytdjloader.service"
@@ -55,6 +55,6 @@ cp .dev/ytdjloader.service .
 if [ "$SQLITE_BUILD" == "True" ]; then
 	tar -cvzf $ARCHIVE_NAME $ARCHIVE_FILES db.sqlite3
 else
-	tar -cvzf $ARCHIVE_NAME $ARCHIVE_FILES migrate.bin
+	tar -cvzf $ARCHIVE_NAME $ARCHIVE_FILES manage.bin .manage.dist
 fi
 mkdir -p ./dist && mv $ARCHIVE_NAME ./dist

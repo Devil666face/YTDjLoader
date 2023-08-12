@@ -11,3 +11,6 @@ __pycache__
 /server.key
 /server.crt
 /.dev/postgresql
+/manage.build/
+/manage.dist/
+/manage.onefile-build/
